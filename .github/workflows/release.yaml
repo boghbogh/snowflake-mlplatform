@@ -1,5 +1,9 @@
 name: release-prod
 on: [release, workflow_dispatch] #workflow_dispatch: Allows you to run this workflow manually from the Actions tab
+  # push:
+  #   branches: [ "main" ]
+  # pull_request:
+  #   branches: [ "main" ]
 jobs:
   deploy-snowflake-prod:
     name: "Release Snowflake Objects to Production"
@@ -27,6 +31,7 @@ jobs:
         with:
           cli-version: "latest"
           default-config-file-path: "./.github/workflows/config.toml"
+          ### ---> If you have two diff Account Change this to point to PROD -->default-config-file-path: "./.github/workflows/config.toml"
 
       - name: Setup python environment
         id: setup-python
@@ -46,6 +51,13 @@ jobs:
           python ./migrations/features/apply_features.py
           python ./migrations/datasets/apply_datasets.py
           python ./migrations/models/apply_models.py
+      
+      - name: Deploy Notebook Into Production
+        run: |
+          snow sql --filename ./migration/notebooks/apply_notebooks.sql \
+          --variable "database=$SNOWFLAKE_DATABASE_PROD" \
+          --variable "schema=$SNOWFLAKE_SCHEMA_PROD" \
+          --variable "warehouse=$SNOWFLAKE_WAREHOUSE"
 
       - name: Apply changes to snowflake apps
         run: |
