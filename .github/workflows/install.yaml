@@ -6,13 +6,13 @@ jobs:
     runs-on: ubuntu-latest
     environment: prod
     env:
-      SNOWFLAKE_CONNECTIONS_SNOWCONNECTION_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
-      SNOWFLAKE_CONNECTIONS_SNOWCONNECTION_USER: ${{ secrets.SNOWFLAKE_USER }}
-      SNOWFLAKE_CONNECTIONS_SNOWCONNECTION_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
-      SNOWFLAKE_CONNECTIONS_SNOWCONNECTION_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
-      SNOWFLAKE_CONNECTIONS_SNOWCONNECTION_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
-      SNOWFLAKE_DATABASE_PROD: ${{ vars.SNOWFLAKE_DATABASE_PROD }}
-      SNOWFLAKE_SCHEMA_PROD: ${{ vars.SNOWFLAKE_SCHEMA_PROD }}
+      SNOWFLAKE_CONNECTIONS_SNOWCONNECTION_ACCOUNT: $<< secrets.SNOWFLAKE_ACCOUNT >>
+      SNOWFLAKE_CONNECTIONS_SNOWCONNECTION_USER: $<< secrets.SNOWFLAKE_USER >>
+      SNOWFLAKE_CONNECTIONS_SNOWCONNECTION_PASSWORD: $<< secrets.SNOWFLAKE_PASSWORD >>
+      SNOWFLAKE_CONNECTIONS_SNOWCONNECTION_ROLE: $<< secrets.SNOWFLAKE_ROLE >>
+      SNOWFLAKE_CONNECTIONS_SNOWCONNECTION_WAREHOUSE: $<< secrets.SNOWFLAKE_WAREHOUSE >>
+      SNOWFLAKE_DATABASE_PROD: $<< vars.SNOWFLAKE_DATABASE_PROD >>
+      SNOWFLAKE_SCHEMA_PROD: $<< vars.SNOWFLAKE_SCHEMA_PROD >>
     steps:
       - name: Mount github repository
         uses: actions/checkout@v4
@@ -28,5 +28,5 @@ jobs:
       - name: Create snowflake production schema
         run: |
           snow sql --filename ./installation/prod/airline_data.sql \
-          --variable "database='$SNOWFLAKE_DATABASE_PROD'" \
-          --variable "schema='$SNOWFLAKE_SCHEMA_PROD'"
+          --variable "database=$SNOWFLAKE_DATABASE_PROD" \
+          --variable "schema=$SNOWFLAKE_SCHEMA_PROD"
