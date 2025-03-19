@@ -55,9 +55,9 @@ jobs:
       - name: Deploy Notebook Into Production
         run: |
           snow sql --filename ./migrations/notebooks/apply_notebooks.sql --debug \
-          --variable "database=$SNOWFLAKE_DATABASE_PROD" \
-          --variable "schema=$SNOWFLAKE_SCHEMA_PROD" \
-          --variable "warehouse=$SNOWFLAKE_WAREHOUSE"
+          --variable "database=$SNOWFLAKE_DATABASE" \
+          --variable "schema=$SNOWFLAKE_SCHEMA" \
+          --variable "wh=$SNOWFLAKE_CONNECTIONS_SNOWCONNECTION_WAREHOUSE"
 
       - name: Apply changes to snowflake apps
         run: |
