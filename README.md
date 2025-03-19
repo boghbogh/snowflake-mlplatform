@@ -10,7 +10,8 @@ Much like how standard software code is safely deployed to production, we will:
 3. Test the clone namespace with the changes to ensure that it is safe to deploy to production (the CI part)
 4. Incrementally apply the changes that have been tested and approved to production environment (the CD part)
 
-![architecture](./architecture.png)
+
+<img width="1363" alt="image" src="https://github.com/user-attachments/assets/fa3f4f59-87e2-4d48-94df-9eb0abd8f793" />
 
 *In this repository, we will use  Github actions to facilate the CI/CD process. For testing, this will happen on a new PR. For deployment, this will happen on a release. This can certainy be modified to fit your team's MLOps practices.*
 
