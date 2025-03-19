@@ -27,6 +27,6 @@ jobs:
 
       - name: Create snowflake production schema
         run: |
-          snow sql --filename ./installation/prod/airline_data.sql -c snowconnection  \
+          snow sql --filename ./installation/prod/airline_data.sql \
           --variable "database=$SNOWFLAKE_DATABASE_PROD" \
           --variable "schema=$SNOWFLAKE_SCHEMA_PROD"
