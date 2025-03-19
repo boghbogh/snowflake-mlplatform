@@ -43,7 +43,7 @@ jobs:
           pip install --no-deps -e .
 
       - name: Install snowflake cli
-        uses: Snowflake-Labs/snowflake-cli-action@v1
+        uses: snowflakedb/snowflake-cli-action@v1.5
         with:
           cli-version: "latest"
           default-config-file-path: "./.github/workflows/config.toml"
